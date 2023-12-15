@@ -1,0 +1,22 @@
+@use '../colors.module.scss' as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px;
+
+  background-color: $background-color-base;
+  height: 80px;
+}
+
+.title {
+  color: $heading-color;
+  font-size: 18px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
