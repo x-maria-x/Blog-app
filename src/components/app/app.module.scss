@@ -1,4 +1,4 @@
-@use '../colors.module.scss' as *;
+@use '../sources/style/colors.module.scss' as *;
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
 * {
@@ -6,6 +6,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol {
+  padding-left: 20px;
 }
 
 .app {

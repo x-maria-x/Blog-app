@@ -5,13 +5,7 @@
     "jest": true
   },
   "ignorePatterns": ["node_modules", "dist", "build"],
-  "extends": [
-    "airbnb",
-    "airbnb/hooks",
-    "plugin:react/recommended",
-    "prettier",
-    "eslint:recommended"
-  ],
+  "extends": ["airbnb", "airbnb/hooks", "plugin:react/recommended", "prettier", "eslint:recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -39,28 +33,18 @@
         "custom": "ignore"
       }
     ],
-    "react/destructuring-assignment": [
-      "off",
-      "always",
-      { "ignoreClassFields": true }
-    ],
+    "react/destructuring-assignment": ["off", "always", { "ignoreClassFields": true }],
 
     "import/order": [
       2,
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always"
       }
     ],
     "default-param-last": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-param-reassign": "off"
   },
   "settings": {
     "version": "detect",
