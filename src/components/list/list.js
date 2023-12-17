@@ -14,8 +14,8 @@ function List() {
   const { currentPage } = useSelector((state) => state.articles)
 
   useEffect(() => {
-    dispatch(fetchArticles())
-  }, [dispatch])
+    dispatch(fetchArticles(currentPage * 5 - 5))
+  }, [dispatch, currentPage])
 
   useEffect(() => {
     const art = articles.articles
