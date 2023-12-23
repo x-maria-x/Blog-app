@@ -3,9 +3,11 @@ import { Card, Tag, Avatar } from 'antd'
 import { format } from 'date-fns'
 import Markdown from 'markdown-to-jsx'
 import { Link } from 'react-router-dom'
+import { nanoid } from 'nanoid'
 
 import heart from '../sources/img/heart.svg'
 import heartLike from '../sources/img/heart+.svg'
+import avatar from '../sources/img/avatar.svg'
 
 import style from './list-item.module.scss'
 
@@ -22,11 +24,38 @@ function ListItem({
   fullArticle,
 }) {
   const formatDate = format(new Date(createdAt), 'MMMM dd, yyyy')
+
+  function shortenText(text, maxLength) {
+    if (!text) return false
+    if (text.length <= maxLength) return text
+
+    let shortenedText = text.slice(0, maxLength)
+
+    const lastSpaceIndex = shortenedText.lastIndexOf(' ')
+
+    if (lastSpaceIndex !== -1) {
+      shortenedText = shortenedText.slice(0, lastSpaceIndex)
+    }
+
+    return `${shortenedText}...`
+  }
+
   const tagsList = tagList.map((tag) => (
-    <span className="tag" key={tag}>
-      <Tag style={{ backgroundColor: 'white' }}>{tag}</Tag>
+    <span className="tag" key={nanoid()}>
+      <Tag style={{ backgroundColor: 'white' }}>{shortenText(tag, 50)}</Tag>
     </span>
   ))
+
+  function avatarImg() {
+    const img = new Image()
+    img.src = author.image
+
+    if (img.complete) {
+      return author.image
+    }
+
+    return avatar
+  }
 
   return (
     <Card style={{ width: '80%', margin: '0 auto' }} className={style.card}>
@@ -35,7 +64,7 @@ function ListItem({
           <div className={style.article_info}>
             <span className={style.title}>
               <Link key={slug} to={`/articles/${slug}`}>
-                {title}
+                {shortenText(title, 80)}
               </Link>
             </span>
             <span className={style.likes}>
@@ -57,12 +86,10 @@ function ListItem({
             <div className={style.user_date}>{formatDate}</div>
           </div>
 
-          <Avatar size={64} icon={<img alt="avatar" src={author.image} />} />
+          <Avatar size={64} src={avatarImg()} style={{ minWidth: 64 }} />
         </div>
       </header>
-      <div>
-        <Markdown>{description}</Markdown>
-      </div>
+      <div>{description && <Markdown>{shortenText(description, 250)}</Markdown>}</div>
       <div>{fullArticle && <Markdown>{body}</Markdown>}</div>
     </Card>
   )

@@ -1,0 +1,58 @@
+@use '../sources/style/colors.module.scss' as *;
+
+p {
+  color: $text-color-secondary;
+  text-align: center;
+}
+
+.link {
+  color: $info-color;
+}
+
+.card {
+  max-width: 500px;
+  width: 40%;
+  margin: 60px auto;
+}
+
+.title {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: $heading-color;
+}
+
+.textError {
+  text-align: left;
+  color: $error-color;
+}
+
+input {
+  margin: 0;
+  padding: 4px 11px;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  min-width: 0;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.inputWrapper {
+  margin: 10px 0;
+}
+
+.button {
+  background-color: $processing-color;
+  color: #ffffff;
+  margin: 10px 0;
+  width: 100%;
+}

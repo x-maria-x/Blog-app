@@ -27,6 +27,7 @@ const articlesSlice = createSlice({
     pageChange(state, action) {
       state.currentPage = action.payload
     },
+    createArticles() {},
     updateArticles() {},
     deleteArticles() {},
   },
@@ -63,5 +64,5 @@ const articlesSlice = createSlice({
   },
 })
 
-export const { pageChange, updateArticles, deleteArticles } = articlesSlice.actions
+export const { pageChange, createArticles, updateArticles, deleteArticles } = articlesSlice.actions
 export default articlesSlice.reducer
