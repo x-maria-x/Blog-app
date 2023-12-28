@@ -25,7 +25,7 @@ function Article() {
       {error && (
         <Alert message={error} type="error" style={{ width: '80%', margin: '20px auto', textAlign: 'center' }} />
       )}
-      {loading && <Spin size="large" style={{ marginTop: '150px', marginLeft: '50%' }} />}
+      {loading && <Spin size="large" style={{ margin: '50px auto 0 auto' }} />}
       {article && <ListItem {...article} fullArticle />}
     </div>
   )

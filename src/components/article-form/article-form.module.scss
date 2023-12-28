@@ -1,0 +1,44 @@
+@use '../sources/style/colors.module.scss' as *;
+
+.inputWrapper {
+  margin: 10px 0;
+}
+
+input,
+textarea {
+  margin: 0;
+  padding: 4px 11px;
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  list-style: none;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  background-image: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.tag {
+  display: flex;
+}
+
+.textError {
+  text-align: left;
+  color: $error-color;
+}
+
+.button {
+  background-color: $processing-color;
+  color: #ffffff;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.buttonMini {
+  width: 30%;
+}

@@ -1,0 +1,14 @@
+@use '../sources/style/colors.module.scss' as *;
+
+.card {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.title {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: $heading-color;
+}

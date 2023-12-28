@@ -13,18 +13,6 @@ function Header() {
 
   const { user } = useSelector((state) => state.user)
 
-  function avatarImg() {
-    const img = new Image()
-    img.src = user.image
-    img.alt = 'avatar'
-
-    if (img.complete) {
-      return user.image
-    }
-
-    return avatar
-  }
-
   return (
     <header className={style.header}>
       <div className={style.title}>
@@ -33,12 +21,14 @@ function Header() {
       {user?.token ? (
         <div className={style.menu}>
           <Button danger style={{ borderColor: '#52c41a', color: '#52c41a' }}>
-            <Link to="/sign-in">Create article</Link>
+            <Link to="/new-article">Create article</Link>
           </Button>
           <Link to="/profile">
             <div className={style.user}>
               {user.username}
-              <Avatar size={46} src={avatarImg()} />
+              <Avatar size={46} src={user.image} className={style.avatar}>
+                <img src={avatar} alt="avatar" />
+              </Avatar>
             </div>
           </Link>
 

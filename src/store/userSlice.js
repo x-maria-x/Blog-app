@@ -43,6 +43,7 @@ export const registerUser = createAsyncThunk('user/registerUser', async (user) =
     throw new Error(res)
   }
   const data = await response.json()
+
   localStorage.setItem('Authorization', JSON.stringify(data.user.token))
 
   return data.user

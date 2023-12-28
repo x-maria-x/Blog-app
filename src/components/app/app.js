@@ -8,6 +8,8 @@ import Article from '../article'
 import SignIn from '../sign-in'
 import SignUp from '../sign-up'
 import Profile from '../profile'
+import NewArticle from '../new-article'
+import EditArticle from '../edit-article'
 import { getUser } from '../../store/userSlice'
 
 import style from './app.module.scss'
@@ -30,6 +32,9 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/new-article" element={<NewArticle />} />
+        <Route path="/articles/:slug/edit" element={<EditArticle />} />
+
         <Route />
       </Routes>
     </div>
