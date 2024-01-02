@@ -61,23 +61,23 @@ function NewArticle() {
     }
   }, [error, setError, getError])
 
-  if (user?.token) {
-    return (
-      <Card className={style.card}>
-        <p className={style.title}>Create new article</p>
-        {status === 'fulfilled' && (
-          <Alert
-            message="The article has been successfully edited!"
-            type="success"
-            style={{ width: '80%', margin: '20px auto', textAlign: 'center' }}
-          />
-        )}
-        <ArticleForm />
-      </Card>
-    )
+  if (!user?.token) {
+    return <Navigate to="/sign-in" />
   }
 
-  return <Navigate to="/sign-in" />
+  return (
+    <Card className={style.card}>
+      <p className={style.title}>Create new article</p>
+      {status === 'fulfilled' && (
+        <Alert
+          message="The article has been successfully edited!"
+          type="success"
+          style={{ width: '80%', margin: '20px auto', textAlign: 'center' }}
+        />
+      )}
+      <ArticleForm />
+    </Card>
+  )
 }
 
 export default NewArticle

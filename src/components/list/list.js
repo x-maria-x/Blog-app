@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Flex, Pagination, ConfigProvider, Spin, Alert } from 'antd'
+import { Flex, Pagination, ConfigProvider, Spin, Alert, App } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fetchArticles, pageChange } from '../../store/articlesSlice'
@@ -36,9 +36,11 @@ function List() {
       {loading && <Spin size="large" style={{ marginTop: '150px', marginLeft: '50%' }} />}
       {articlesList && (
         <>
-          <Flex gap="middle" vertical style={{ alignItems: 'center', margin: '20px 0' }}>
-            {articlesList}
-          </Flex>
+          <App>
+            <Flex gap="middle" vertical style={{ alignItems: 'center', margin: '20px 0' }}>
+              {articlesList}
+            </Flex>
+          </App>
           <ConfigProvider
             theme={{
               components: {

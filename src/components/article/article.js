@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { Spin, Alert } from 'antd'
+import { Spin, Alert, App } from 'antd'
 
 import { fetchArticle } from '../../store/articlesSlice'
 import ListItem from '../list-item'
@@ -26,7 +26,11 @@ function Article() {
         <Alert message={error} type="error" style={{ width: '80%', margin: '20px auto', textAlign: 'center' }} />
       )}
       {loading && <Spin size="large" style={{ margin: '50px auto 0 auto' }} />}
-      {article && <ListItem {...article} fullArticle />}
+      {article && (
+        <App>
+          <ListItem {...article} fullArticle />
+        </App>
+      )}
     </div>
   )
 }

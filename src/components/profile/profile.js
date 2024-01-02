@@ -68,86 +68,82 @@ function Profile() {
     }
   }, [error, setError, getError])
 
-  if (user?.token) {
-    return (
-      <Card className={style.card}>
-        <p className={style.title}>Edit Profile</p>
-        <form>
-          <div className={style.inputWrapper}>
-            <div>Username</div>
-            <input
-              defaultValue={user.username}
-              {...register('username', {
-                required: 'Username is required!',
-                minLength: { value: 3, message: 'username must be between 3 and 20 characters long' },
-                maxLength: { value: 20, message: 'username must be between 3 and 20 characters long' },
-              })}
-            />
-            <div className={style.textError}>{errors?.username && (errors?.username?.message || 'Error!!!')}</div>
-          </div>
-
-          <div className={style.inputWrapper}>
-            <div>Email address</div>
-            <input
-              defaultValue={user.email}
-              {...register('email', {
-                required: 'Email is required!',
-                pattern: {
-                  value:
-                    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-                  message: 'Email no valid!',
-                },
-              })}
-            />
-            <div className={style.textError}>{errors?.email && (errors?.email?.message || 'Error!!!')}</div>
-          </div>
-
-          <div className={style.inputWrapper}>
-            <div>New password</div>
-            <input
-              type="password"
-              {...register('password', {
-                required: 'Password is required!',
-                minLength: { value: 6, message: 'Your password needs to be at least 6 characters.' },
-                maxLength: { value: 40, message: 'Your password must contain no more than 40 characters.' },
-              })}
-            />
-            <div className={style.textError}>{errors?.password && (errors?.password?.message || 'Error!!!')}</div>
-          </div>
-
-          <div className={style.inputWrapper}>
-            <div>Avatar image (url)</div>
-            <input
-              defaultValue={user.image}
-              {...register('image', {
-                pattern: {
-                  value:
-                    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/,
-                  message: 'URL no valid!',
-                },
-              })}
-            />
-            <div className={style.textError}>{errors?.image && (errors?.image?.message || 'Error!!!')}</div>
-          </div>
-
-          {error && (
-            <Alert
-              message={getError()}
-              type="error"
-              style={{ width: '80%', margin: '20px auto', textAlign: 'center' }}
-            />
-          )}
-
-          <Button type="submit" onClick={handleSubmit(onSubmit)} className={style.button}>
-            {' '}
-            Save
-          </Button>
-        </form>
-      </Card>
-    )
+  if (!user?.token) {
+    return <Navigate to="/sign-in" />
   }
 
-  return <Navigate to="/sign-in" />
+  return (
+    <Card className={style.card}>
+      <p className={style.title}>Edit Profile</p>
+      <form>
+        <div className={style.inputWrapper}>
+          <div>Username</div>
+          <input
+            defaultValue={user.username}
+            {...register('username', {
+              required: 'Username is required!',
+              minLength: { value: 3, message: 'username must be between 3 and 20 characters long' },
+              maxLength: { value: 20, message: 'username must be between 3 and 20 characters long' },
+            })}
+          />
+          <div className={style.textError}>{errors?.username && (errors?.username?.message || 'Error!!!')}</div>
+        </div>
+
+        <div className={style.inputWrapper}>
+          <div>Email address</div>
+          <input
+            defaultValue={user.email}
+            {...register('email', {
+              required: 'Email is required!',
+              pattern: {
+                value:
+                  /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+                message: 'Email no valid!',
+              },
+            })}
+          />
+          <div className={style.textError}>{errors?.email && (errors?.email?.message || 'Error!!!')}</div>
+        </div>
+
+        <div className={style.inputWrapper}>
+          <div>New password</div>
+          <input
+            type="password"
+            {...register('password', {
+              required: 'Password is required!',
+              minLength: { value: 6, message: 'Your password needs to be at least 6 characters.' },
+              maxLength: { value: 40, message: 'Your password must contain no more than 40 characters.' },
+            })}
+          />
+          <div className={style.textError}>{errors?.password && (errors?.password?.message || 'Error!!!')}</div>
+        </div>
+
+        <div className={style.inputWrapper}>
+          <div>Avatar image (url)</div>
+          <input
+            defaultValue={user.image}
+            {...register('image', {
+              pattern: {
+                value:
+                  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/,
+                message: 'URL no valid!',
+              },
+            })}
+          />
+          <div className={style.textError}>{errors?.image && (errors?.image?.message || 'Error!!!')}</div>
+        </div>
+
+        {error && (
+          <Alert message={getError()} type="error" style={{ width: '80%', margin: '20px auto', textAlign: 'center' }} />
+        )}
+
+        <Button type="submit" onClick={handleSubmit(onSubmit)} className={style.button}>
+          {' '}
+          Save
+        </Button>
+      </form>
+    </Card>
+  )
 }
 
 export default Profile

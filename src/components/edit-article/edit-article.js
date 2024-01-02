@@ -68,26 +68,26 @@ function EditArticle() {
     }
   }, [error, setError, getError])
 
-  if (user?.token) {
-    return (
-      <Card className={style.card}>
-        {error && (
-          <Alert message={error} type="error" style={{ width: '80%', margin: '20px auto', textAlign: 'center' }} />
-        )}
-        <p className={style.title}>Edit article</p>
-        {status === 'fulfilled' && (
-          <Alert
-            message="The article has been successfully edited!"
-            type="success"
-            style={{ width: '80%', margin: '20px auto', textAlign: 'center' }}
-          />
-        )}
-        <ArticleForm article={article} />
-      </Card>
-    )
+  if (!user?.token) {
+    return <Navigate to="/sign-in" />
   }
 
-  return <Navigate to="/sign-in" />
+  return (
+    <Card className={style.card}>
+      {error && (
+        <Alert message={error} type="error" style={{ width: '80%', margin: '20px auto', textAlign: 'center' }} />
+      )}
+      <p className={style.title}>Edit article</p>
+      {status === 'fulfilled' && (
+        <Alert
+          message="The article has been successfully edited!"
+          type="success"
+          style={{ width: '80%', margin: '20px auto', textAlign: 'center' }}
+        />
+      )}
+      <ArticleForm article={article} />
+    </Card>
+  )
 }
 
 export default EditArticle

@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import { Card, Tag, Avatar, Button, Popconfirm } from 'antd'
+import { React, useState } from 'react'
+import { Card, Tag, Avatar, Button, Popconfirm, App } from 'antd'
 import { format } from 'date-fns'
 import Markdown from 'markdown-to-jsx'
 import { Link } from 'react-router-dom'
 import { nanoid } from 'nanoid'
 import { useDispatch, useSelector } from 'react-redux'
+//  eslint-disable-next-line import/no-extraneous-dependencies
+import UserOutlined from '@ant-design/icons/UserOutlined'
 
 import heart from '../sources/img/heart.svg'
 import heartLike from '../sources/img/heart+.svg'
-// import avatar from '../sources/img/avatar.svg'
 import { deleteArticle, favoriteArticle, unfavoriteArticle } from '../../store/articlesSlice'
 
 import style from './list-item.module.scss'
@@ -26,18 +27,19 @@ function ListItem({
   fullArticle,
 }) {
   const dispatch = useDispatch()
+  const { message } = App.useApp()
 
   const { user } = useSelector((state) => state.user)
-  const [like, setLike] = useState(favorited)
+  const [isLike, setIsLike] = useState(favorited)
   const [likeCount, setLikeCount] = useState(favoritesCount)
-
   const formatDate = format(new Date(createdAt), 'MMMM dd, yyyy')
 
   function shortenText(text, maxLength) {
-    if (!text) return false
-    if (text.length <= maxLength) return text
+    const newText = text.trim()
+    if (!newText) return null
+    if (newText.length <= maxLength) return newText
 
-    let shortenedText = text.slice(0, maxLength)
+    let shortenedText = newText.slice(0, maxLength)
 
     const lastSpaceIndex = shortenedText.lastIndexOf(' ')
 
@@ -48,21 +50,29 @@ function ListItem({
     return `${shortenedText}...`
   }
 
-  const tagsList = tagList.map((tag) => (
-    <span className="tag" key={nanoid()}>
-      <Tag style={{ backgroundColor: 'white' }}>{shortenText(tag, 50)}</Tag>
-    </span>
-  ))
+  const tagsList = tagList?.map((tag) => {
+    if (tag.trim() === '') return null
+
+    return (
+      <span className={style.tag} key={nanoid()}>
+        <Tag style={{ backgroundColor: 'white' }}>{shortenText(tag, 30)}</Tag>
+      </span>
+    )
+  })
 
   function onFavorite() {
-    if (!like) {
+    if (!user.token) {
+      message.error('You are not logged in!')
+      return
+    }
+    if (!isLike) {
       dispatch(favoriteArticle(slug))
       setLikeCount((l) => l + 1)
     } else {
       dispatch(unfavoriteArticle(slug))
       setLikeCount((l) => l - 1)
     }
-    setLike(!like)
+    setIsLike(!isLike)
   }
 
   const onDelete = () => {
@@ -80,7 +90,7 @@ function ListItem({
               </Link>
             </span>
             <span className={style.likes}>
-              {like ? (
+              {isLike ? (
                 <button onClick={onFavorite} type="button" className={style.button}>
                   <img src={heartLike} alt="like" className={style.heart} />{' '}
                 </button>
@@ -101,21 +111,17 @@ function ListItem({
             <div className={style.user_name}>{author.username}</div>
             <div className={style.user_date}>{formatDate}</div>
           </div>
-
           <Avatar
             size={64}
+            icon={<UserOutlined />}
             src={author.image}
             style={{
               minWidth: 64,
               backgroundColor: '#fff',
               color: 'rgba(0,0,0,3)',
-              fontWeight: '600',
               borderColor: 'rgba(0,0,0,0.2)',
             }}
-          >
-            {author.username}
-            {/* <img src={avatar} alt="avatar" /> */}
-          </Avatar>
+          />
         </div>
       </header>
       <div className={style.description}>
@@ -143,7 +149,7 @@ function ListItem({
           </>
         )}
       </div>
-      <div>{fullArticle && <Markdown>{body}</Markdown>}</div>
+      <div>{fullArticle && body && <Markdown>{body}</Markdown>}</div>
     </Card>
   )
 }

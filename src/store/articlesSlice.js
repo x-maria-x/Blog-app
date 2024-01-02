@@ -322,8 +322,7 @@ const articlesSlice = createSlice({
       .addCase(unfavoriteArticle.pending, (state) => {
         state.error = null
       })
-      .addCase(unfavoriteArticle.fulfilled, (state, action) => {
-        state.article = action.payload
+      .addCase(unfavoriteArticle.fulfilled, (state) => {
         state.error = null
       })
       .addCase(unfavoriteArticle.rejected, (state, action) => {

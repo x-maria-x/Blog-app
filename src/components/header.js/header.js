@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+//  eslint-disable-next-line import/no-extraneous-dependencies
+import UserOutlined from '@ant-design/icons/UserOutlined'
 
 import { logOut } from '../../store/userSlice'
 import avatar from '../sources/img/avatar.svg'
@@ -26,7 +28,7 @@ function Header() {
           <Link to="/profile">
             <div className={style.user}>
               {user.username}
-              <Avatar size={46} src={user.image} className={style.avatar}>
+              <Avatar size={46} icon={<UserOutlined />} src={user.image} className={style.avatar}>
                 <img src={avatar} alt="avatar" />
               </Avatar>
             </div>
