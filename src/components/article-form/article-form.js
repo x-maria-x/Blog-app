@@ -92,6 +92,7 @@ function ArticleForm({ article }) {
           placeholder="Title"
           {...register('title', {
             required: 'Title is required!',
+            validate: (value) => value.trim() !== '' || 'Title is required!',
           })}
         />
         <div className={style.textError}>{errors?.title && (errors?.title?.message || 'Error!!!')}</div>
@@ -104,6 +105,7 @@ function ArticleForm({ article }) {
           placeholder="Description"
           {...register('description', {
             required: 'Description is required!',
+            validate: (value) => value.trim() !== '' || 'Title is required!',
           })}
         />
         <div className={style.textError}>{errors?.description && (errors?.description?.message || 'Error!!!')}</div>
@@ -116,6 +118,7 @@ function ArticleForm({ article }) {
           placeholder="Text"
           {...register('body', {
             required: 'Text is required!',
+            validate: (value) => value.trim() !== '' || 'Title is required!',
           })}
         />
         <div className={style.textError}>{errors?.body && (errors?.body?.message || 'Error!!!')}</div>
@@ -132,6 +135,7 @@ function ArticleForm({ article }) {
                   maxLength: { value: 30, message: 'Your tag must contain no more than 30 characters.' },
                   required:
                     "Tag is required! If you don't want to provide the Tag, please delete the tag before sending form!",
+                  validate: (value) => value.trim() !== '' || 'Title is required!',
                 })}
                 style={{ width: '30%', marginRight: 10 }}
               />

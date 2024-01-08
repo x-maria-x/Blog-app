@@ -3,7 +3,6 @@ import { Card, Tag, Avatar, Button, Popconfirm, App } from 'antd'
 import { format } from 'date-fns'
 import Markdown from 'markdown-to-jsx'
 import { Link } from 'react-router-dom'
-import { nanoid } from 'nanoid'
 import { useDispatch, useSelector } from 'react-redux'
 //  eslint-disable-next-line import/no-extraneous-dependencies
 import UserOutlined from '@ant-design/icons/UserOutlined'
@@ -35,7 +34,7 @@ function ListItem({
   const formatDate = format(new Date(createdAt), 'MMMM dd, yyyy')
 
   function shortenText(text, maxLength) {
-    const newText = text.trim()
+    const newText = text?.trim()
     if (!newText) return null
     if (newText.length <= maxLength) return newText
 
@@ -50,11 +49,12 @@ function ListItem({
     return `${shortenedText}...`
   }
 
-  const tagsList = tagList?.map((tag) => {
-    if (tag.trim() === '') return null
+  const tagsList = tagList?.map((tag, index) => {
+    if (tag?.trim() === '') return null
 
     return (
-      <span className={style.tag} key={nanoid()}>
+      // eslint-disable-next-line react/no-array-index-key
+      <span className={style.tag} key={index}>
         <Tag style={{ backgroundColor: 'white' }}>{shortenText(tag, 30)}</Tag>
       </span>
     )
@@ -125,31 +125,31 @@ function ListItem({
         </div>
       </header>
       <div className={style.description}>
-        {description && (
-          <>
-            <Markdown>{shortenText(description, 250)}</Markdown>{' '}
-            {fullArticle && user.username === author.username && (
-              <div className={style.buttons}>
-                <Popconfirm
-                  title="Delete the article"
-                  description="Are you sure to delete this article??"
-                  onConfirm={onDelete}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button danger style={{ borderColor: '#F5222D', color: '#F5222D' }}>
-                    Delete
-                  </Button>
-                </Popconfirm>
-                <Button danger style={{ borderColor: '#52c41a', color: '#52c41a' }}>
-                  <Link to={`/articles/${slug}/edit`}>Edit</Link>
-                </Button>
-              </div>
-            )}
-          </>
+        {description.trim() !== '' && (
+          // <>
+          <Markdown>{shortenText(description, 250)}</Markdown>
         )}
+        {fullArticle && user.username === author.username && (
+          <div className={style.buttons}>
+            <Popconfirm
+              title="Delete the article"
+              description="Are you sure to delete this article??"
+              onConfirm={onDelete}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button danger style={{ borderColor: '#F5222D', color: '#F5222D' }}>
+                Delete
+              </Button>
+            </Popconfirm>
+            <Button danger style={{ borderColor: '#52c41a', color: '#52c41a' }}>
+              <Link to={`/articles/${slug}/edit`}>Edit</Link>
+            </Button>
+          </div>
+        )}
+        {/* </> */}
       </div>
-      <div>{fullArticle && body && <Markdown>{body}</Markdown>}</div>
+      <div>{fullArticle && body.trim() !== '' && <Markdown>{body}</Markdown>}</div>
     </Card>
   )
 }

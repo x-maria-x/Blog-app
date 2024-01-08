@@ -68,7 +68,7 @@
   margin-top: 5px;
   display: flex;
   flex-wrap: wrap;
-  max-width: 80%;
+  max-width: 600px;
 }
 
 .tag {
@@ -76,15 +76,16 @@
 }
 
 .description {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
   margin-top: 10px;
 }
 
 .buttons {
   display: flex;
   gap: 10px;
+  float: right;
 }
 
 .button {
