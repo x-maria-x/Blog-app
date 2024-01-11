@@ -125,10 +125,7 @@ function ListItem({
         </div>
       </header>
       <div className={style.description}>
-        {description.trim() !== '' && (
-          // <>
-          <Markdown>{shortenText(description, 250)}</Markdown>
-        )}
+        {description && description.trim() !== '' && <Markdown>{shortenText(description, 250)}</Markdown>}
         {fullArticle && user.username === author.username && (
           <div className={style.buttons}>
             <Popconfirm
@@ -147,7 +144,6 @@ function ListItem({
             </Button>
           </div>
         )}
-        {/* </> */}
       </div>
       <div>{fullArticle && body.trim() !== '' && <Markdown>{body}</Markdown>}</div>
     </Card>
